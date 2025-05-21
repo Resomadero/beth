@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Municipality of Salay - The Heart of Misamis Oriental</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#FF69B4',secondary:'#4169E1'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-gradient {
+            background: linear-gradient(90deg, rgba(255, 105, 180, 0.9) 0%, rgba(65, 105, 225, 0.8) 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #FF69B4, #4169E1);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #FF69B4, #4169E1);
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .custom-checkbox {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #FF69B4;
+            border-radius: 4px;
+        }
+        .custom-checkbox:hover input ~ .checkmark {
+            background-color: #f9f9f9;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #FF69B4;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .custom-checkbox .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background: linear-gradient(90deg, #FF69B4, #4169E1);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .gallery-masonry {
+            column-count: 3;
+            column-gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .gallery-masonry {
+                column-count: 2;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery-masonry {
+                column-count: 1;
+            }
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-white custom-scrollbar">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-r from-primary to-secondary rounded-full mr-2">
+                            <span class="text-white font-['Pacifico'] text-xl"></span>
+                        </div>
+                        <div class="hidden md:block">
+                            <h1 class="text-lg font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Municipality of Salay</h1>
+                            <p class="text-xs text-gray-600">The Heart of Misamis Oriental</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-800 hover:text-primary font-medium transition-colors">Home</a>
+                    <a href="#about" class="text-gray-800 hover:text-primary font-medium transition-colors">About</a>
+                    <a href="#services" class="text-gray-800 hover:text-primary font-medium transition-colors">Services</a>
+                    <a href="#tourism" class="text-gray-800 hover:text-primary font-medium transition-colors">Tourism</a>
+                    <a href="#news" class="text-gray-800 hover:text-primary font-medium transition-colors">News & Updates</a>
+                    <a href="#contact" class="text-gray-800 hover:text-primary font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary focus:outline-none">
+                        <i class="ri-menu-line ri-2x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3">
+                <nav class="flex flex-col space-y-4">
+                    <a href="#home" class="text-gray-800 hover:text-primary font-medium py-2 border-b border-gray-100">Home</a>
+                    <a href="#about" class="text-gray-800 hover:text-primary font-medium py-2 border-b border-gray-100">About</a>
+                    <a href="#services" class="text-gray-800 hover:text-primary font-medium py-2 border-b border-gray-100">Services</a>
+                    <a href="#tourism" class="text-gray-800 hover:text-primary font-medium py-2 border-b border-gray-100">Tourism</a>
+                    <a href="#news" class="text-gray-800 hover:text-primary font-medium py-2 border-b border-gray-100">News & Updates</a>
+                    <a href="#contact" class="text-gray-800 hover:text-primary font-medium py-2">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 md:pt-0 relative min-h-screen flex items-center" style="background-image: url('https://readdy.ai/api/search-image?query=Beautiful%20coastal%20town%20of%20Salay%20in%20Misamis%20Oriental%2C%20Philippines%20with%20pristine%20beaches%2C%20crystal%20clear%20blue%20waters%2C%20lush%20green%20mountains%2C%20traditional%20Filipino%20architecture%2C%20colorful%20boats%2C%20palm%20trees%2C%20sunset%20glow%2C%20peaceful%20atmosphere%2C%20panoramic%20view%2C%20natural%20beauty&width=1920&height=1080&seq=1&orientation=landscape'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="container mx-auto px-4 z-10">
+            <div class="w-full md:w-1/2 text-white">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to Municipality of Salay</h1>
+                <p class="text-xl md:text-2xl mb-8">The Heart of Misamis Oriental</p>
+                <p class="text-lg mb-8">Discover the natural beauty, rich culture, and warm hospitality of our coastal paradise in Northern Mindanao.</p>
+                <a href="#about" class="bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-button font-semibold inline-flex items-center transition-all shadow-lg hover:shadow-xl whitespace-nowrap">
+                    Explore More
+                    <i class="ri-arrow-right-line ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                    <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">About Salay</span>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-6">Discover the rich heritage and vibrant community of Salay, a coastal municipality with a blend of natural wonders and cultural treasures.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Our Rich History</h3>
+                    <p class="text-gray-600 mb-4">Founded in 1858, Salay is one of the oldest settlements in Misamis Oriental. The name "Salay" is derived from the word "Salai," which means to hang fish to dry - a testament to the town's fishing heritage.</p>
+                    <p class="text-gray-600 mb-4">Over the centuries, Salay has evolved from a small fishing village to a thriving municipality while preserving its cultural identity and natural resources. The town is known for its well-preserved Spanish colonial houses, historic church, and traditional practices.</p>
+                    <p class="text-gray-600 mb-6">Today, Salay is a progressive municipality that balances economic development with environmental conservation and cultural preservation. Our community takes pride in our heritage while embracing opportunities for sustainable growth.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                                <i class="ri-map-pin-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Strategic Location</h4>
+                                <p class="text-sm text-gray-600">Northern Mindanao, Philippines</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mr-3">
+                                <i class="ri-group-line text-secondary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Population</h4>
+                                <p class="text-sm text-gray-600">Approximately 28,500 residents</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                                <i class="ri-earth-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Land Area</h4>
+                                <p class="text-sm text-gray-600">107.29 square kilometers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 relative">
+                    <div class="bg-white p-3 shadow-xl rounded-lg transform rotate-2">
+                        <img src="https://readdy.ai/api/search-image?query=Historical%20Spanish%20colonial%20architecture%20in%20Salay%2C%20Misamis%20Oriental%2C%20Philippines%20with%20white%20church%2C%20ancestral%20houses%2C%20cobblestone%20streets%2C%20ornate%20details%2C%20heritage%20buildings%2C%20tropical%20setting%2C%20palm%20trees%2C%20blue%20sky%2C%20cultural%20landmark%2C%20preserved%20historical%20site&width=800&height=600&seq=2&orientation=landscape" alt="Historical Salay" class="w-full h-auto rounded object-cover">
+                    </div>
+                    <div class="bg-white p-3 shadow-xl rounded-lg absolute -bottom-10 -left-10 transform -rotate-3 hidden md:block">
+                        <img src="https://readdy.ai/api/search-image?query=Beautiful%20coastal%20scenery%20of%20Salay%2C%20Misamis%20Oriental%20with%20pristine%20beaches%2C%20turquoise%20waters%2C%20fishing%20boats%2C%20palm%20trees%2C%20sunset%20colors%2C%20tropical%20paradise%2C%20natural%20beauty%2C%20peaceful%20atmosphere%2C%20gentle%20waves%2C%20clear%20sky&width=400&height=300&seq=3&orientation=landscape" alt="Coastal Salay" class="w-full h-auto rounded object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                    <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Discover Salay</span>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-6">Explore the diverse offerings of our beautiful municipality, from natural wonders to cultural heritage and modern services.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Tourism Spots -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Beautiful%20beaches%20and%20waterfalls%20in%20Salay%2C%20Misamis%20Oriental%2C%20Philippines%20with%20crystal%20clear%20waters%2C%20lush%20tropical%20vegetation%2C%20natural%20rock%20formations%2C%20turquoise%20pools%2C%20cascading%20water%2C%20pristine%20white%20sand%2C%20palm%20trees%2C%20vibrant%20colors%2C%20untouched%20nature&width=600&height=400&seq=4&orientation=landscape" alt="Tourism Spots" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                            <i class="ri-compass-3-line text-primary ri-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Tourism Spots</h3>
+                        <p class="text-gray-600 mb-4">Discover breathtaking beaches, hidden waterfalls, and scenic viewpoints that showcase Salay's natural beauty.</p>
+                        <a href="#tourism" class="text-secondary font-medium inline-flex items-center hover:text-primary transition-colors">
+                            Explore Destinations
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Local Products -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Filipino%20local%20products%20and%20handicrafts%20from%20Salay%2C%20Misamis%20Oriental%20including%20woven%20baskets%2C%20handmade%20textiles%2C%20fresh%20tropical%20fruits%2C%20seafood%2C%20coconut%20products%2C%20traditional%20pottery%2C%20colorful%20fabrics%2C%20organic%20produce%2C%20artisanal%20goods%20on%20display%20at%20local%20market&width=600&height=400&seq=5&orientation=landscape" alt="Local Products" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                            <i class="ri-store-2-line text-secondary ri-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Local Products</h3>
+                        <p class="text-gray-600 mb-4">Sample our renowned agricultural products, fresh seafood, and handcrafted items made by local artisans.</p>
+                        <a href="#" class="text-secondary font-medium inline-flex items-center hover:text-primary transition-colors">
+                            Discover Products
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Government Services -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20Filipino%20government%20office%20in%20Salay%2C%20Misamis%20Oriental%20with%20professional%20staff%20helping%20citizens%2C%20clean%20organized%20space%2C%20digital%20services%2C%20efficient%20operations%2C%20friendly%20atmosphere%2C%20government%20employees%20in%20uniform%2C%20modern%20computers%2C%20official%20documents%2C%20professional%20setting&width=600&height=400&seq=6&orientation=landscape" alt="Government Services" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                            <i class="ri-government-line text-primary ri-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Government Services</h3>
+                        <p class="text-gray-600 mb-4">Access efficient and transparent government services designed to meet the needs of residents and visitors.</p>
+                        <a href="#" class="text-secondary font-medium inline-flex items-center hover:text-primary transition-colors">
+                            View Services
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Cultural Heritage -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Filipino%20cultural%20festival%20in%20Salay%2C%20Misamis%20Oriental%20with%20traditional%20dancers%20in%20colorful%20costumes%2C%20cultural%20performances%2C%20historical%20reenactments%2C%20heritage%20celebration%2C%20local%20music%2C%20traditional%20instruments%2C%20community%20gathering%2C%20festive%20atmosphere%2C%20cultural%20preservation&width=600&height=400&seq=7&orientation=landscape" alt="Cultural Heritage" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                            <i class="ri-ancient-pavilion-line text-secondary ri-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Cultural Heritage</h3>
+                        <p class="text-gray-600 mb-4">Experience our rich cultural traditions, historical landmarks, and vibrant festivals that celebrate our heritage.</p>
+                        <a href="#" class="text-secondary font-medium inline-flex items-center hover:text-primary transition-colors">
+                            Explore Culture
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Updates -->
+    <section id="news" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                    <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">News & Updates</span>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-6">Stay informed with the latest happenings, events, and developments in our vibrant municipality.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- News Item 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Filipino%20coastal%20cleanup%20event%20with%20volunteers%20cleaning%20beach%2C%20environmental%20conservation%2C%20community%20service%2C%20blue%20waters%2C%20plastic%20waste%20collection%2C%20people%20working%20together%2C%20environmental%20protection%2C%20sunny%20day%2C%20organized%20activity%2C%20local%20community%20involvement&width=600&height=400&seq=8&orientation=landscape" alt="Coastal Cleanup" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            <span>May 18, 2025</span>
+                            <span class="mx-2">•</span>
+                            <span>Community</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Successful Coastal Cleanup Drive Removes 500kg of Waste</h3>
+                        <p class="text-gray-600 mb-4">Over 200 volunteers participated in our monthly coastal cleanup initiative, removing significant plastic waste and debris from our beautiful beaches.</p>
+                        <a href="#" class="text-secondary font-medium inline-flex items-center hover:text-primary transition-colors">
+                            Read More
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- News Item 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20Filipino%20school%20building%20inauguration%20with%20ribbon%20cutting%20ceremony%2C%20officials%20in%20formal%20attire%2C%20new%20educational%20facility%2C%20students%20in%20uniform%2C%20teachers%2C%20modern%20architecture%2C%20educational%20equipment%2C%20celebration%2C%20official%20event%2C%20community%20gathering&width=600&height=400&seq=9&orientation=landscape" alt="School Inauguration" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            <span>May 10, 2025</span>
+                            <span class="mx-2">•</span>
+                            <span>Education</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">New STEM Building Inaugurated at Salay National High School</h3>
+                        <p class="text-gray-600 mb-4">The municipality celebrated the opening of a state-of-the-art STEM facility aimed at enhancing science and technology education for our students.</p>
+                        <a href="#" class="text-secondary font-medium inline-flex items-center hover:text-primary transition-colors">
+                            Read More
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- News Item 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Filipino%20cultural%20festival%20with%20traditional%20dancers%20in%20colorful%20costumes%2C%20street%20parade%2C%20musical%20performances%2C%20food%20stalls%20with%20local%20cuisine%2C%20community%20celebration%2C%20decorative%20banners%2C%20festive%20atmosphere%2C%20cultural%20heritage%20display%2C%20traditional%20music%2C%20joyful%20participants&width=600&height=400&seq=10&orientation=landscape" alt="Cultural Festival" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
+                            <i class="ri-calendar-line mr-2"></i>
+                            <span>May 5, 2025</span>
+                            <span class="mx-2">•</span>
+                            <span>Culture</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Annual Kalingawan Festival Set for June 12-15</h3>
+                        <p class="text-gray-600 mb-4">Preparations are underway for our biggest cultural celebration of the year, featuring traditional performances, local cuisine, and artisan crafts.</p>
+                        <a href="#" class="text-secondary font-medium inline-flex items-center hover:text-primary transition-colors">
+                            Read More
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-button font-semibold inline-flex items-center transition-all shadow-md hover:shadow-lg whitespace-nowrap">
+                    View All News
+                    <i class="ri-arrow-right-line ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tourism Highlights -->
+    <section id="tourism" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                    <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Tourism Highlights</span>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-6">Explore the breathtaking natural wonders and cultural treasures that make Salay a must-visit destination.</p>
+            </div>
+            
+            <div class="mb-8 flex flex-wrap justify-center gap-4">
+                <button class="filter-btn active px-6 py-2 rounded-full bg-primary text-white font-medium transition-all hover:shadow-md whitespace-nowrap" data-filter="all">All</button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all hover:bg-gray-300 whitespace-nowrap" data-filter="beaches">Beaches</button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all hover:bg-gray-300 whitespace-nowrap" data-filter="landmarks">Landmarks</button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all hover:bg-gray-300 whitespace-nowrap" data-filter="nature">Nature</button>
+                <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all hover:bg-gray-300 whitespace-nowrap" data-filter="culture">Culture</button>
+            </div>
+            
+            <div class="gallery-masonry">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item" data-category="beaches">
+                    <div class="relative rounded-lg overflow-hidden shadow-md cursor-pointer">
+                        <img src="https://readdy.ai/api/search-image?query=Beautiful%20pristine%20beach%20in%20Salay%2C%20Misamis%20Oriental%20with%20white%20sand%2C%20crystal%20clear%20turquoise%20waters%2C%20palm%20trees%2C%20gentle%20waves%2C%20sunny%20day%2C%20peaceful%20atmosphere%2C%20natural%20beauty%2C%20tropical%20paradise%2C%20untouched%20coastline&width=600&height=800&seq=11&orientation=portrait" alt="Salay Beach" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                            <h3 class="text-white text-xl font-semibold">Salay White Beach</h3>
+                            <p class="text-white/80 text-sm">Pristine shores with crystal clear waters</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item" data-category="landmarks">
+                    <div class="relative rounded-lg overflow-hidden shadow-md cursor-pointer">
+                        <img src="https://readdy.ai/api/search-image?query=Historic%20Spanish%20colonial%20church%20in%20Salay%2C%20Misamis%20Oriental%20with%20white%20facade%2C%20bell%20tower%2C%20ornate%20details%2C%20religious%20architecture%2C%20heritage%20building%2C%20blue%20sky%2C%20palm%20trees%2C%20cultural%20landmark%2C%20preserved%20historical%20site&width=600&height=400&seq=12&orientation=landscape" alt="Salay Church" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                            <h3 class="text-white text-xl font-semibold">St. Vincent Ferrer Parish Church</h3>
+                            <p class="text-white/80 text-sm">Historic Spanish colonial church built in 1882</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item" data-category="nature">
+                    <div class="relative rounded-lg overflow-hidden shadow-md cursor-pointer">
+                        <img src="https://readdy.ai/api/search-image?query=Tropical%20waterfall%20in%20Salay%2C%20Misamis%20Oriental%20with%20cascading%20water%2C%20natural%20pool%2C%20lush%20green%20vegetation%2C%20rock%20formations%2C%20clear%20water%2C%20tropical%20forest%2C%20pristine%20nature%2C%20serene%20atmosphere%2C%20hidden%20gem&width=600&height=900&seq=13&orientation=portrait" alt="Salay Waterfall" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                            <h3 class="text-white text-xl font-semibold">Tagbubonga Falls</h3>
+                            <p class="text-white/80 text-sm">Hidden waterfall with natural swimming pools</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item" data-category="culture">
+                    <div class="relative rounded-lg overflow-hidden shadow-md cursor-pointer">
+                        <img src="https://readdy.ai/api/search-image?query=Traditional%20Filipino%20ancestral%20house%20in%20Salay%2C%20Misamis%20Oriental%20with%20wooden%20architecture%2C%20capiz%20shell%20windows%2C%20ornate%20details%2C%20heritage%20building%2C%20historical%20residence%2C%20Spanish%20colonial%20influence%2C%20preserved%20structure%2C%20cultural%20landmark&width=600&height=400&seq=14&orientation=landscape" alt="Ancestral House" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                            <h3 class="text-white text-xl font-semibold">Neri Ancestral House</h3>
+                            <p class="text-white/80 text-sm">Well-preserved Spanish colonial residence</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item" data-category="beaches">
+                    <div class="relative rounded-lg overflow-hidden shadow-md cursor-pointer">
+                        <img src="https://readdy.ai/api/search-image?query=Scenic%20coastal%20view%20in%20Salay%2C%20Misamis%20Oriental%20with%20fishing%20boats%2C%20sunset%20colors%2C%20calm%20waters%2C%20silhouettes%2C%20orange%20and%20purple%20sky%2C%20peaceful%20atmosphere%2C%20fishermen%2C%20traditional%20boats%2C%20reflection%20on%20water&width=600&height=400&seq=15&orientation=landscape" alt="Fishing Village" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                            <h3 class="text-white text-xl font-semibold">Fishermen's Cove</h3>
+                            <p class="text-white/80 text-sm">Traditional fishing village with stunning sunset views</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item" data-category="nature">
+                    <div class="relative rounded-lg overflow-hidden shadow-md cursor-pointer">
+                        <img src="https://readdy.ai/api/search-image?query=Lush%20green%20rice%20terraces%20in%20Salay%2C%20Misamis%20Oriental%20with%20agricultural%20landscape%2C%20farming%20community%2C%20verdant%20fields%2C%20rural%20scenery%2C%20traditional%20farming%20methods%2C%20beautiful%20countryside%2C%20tropical%20climate%2C%20sustainable%20agriculture&width=600&height=800&seq=16&orientation=portrait" alt="Rice Terraces" class="w-full h-auto">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                            <h3 class="text-white text-xl font-semibold">Salay Rice Terraces</h3>
+                            <p class="text-white/80 text-sm">Verdant agricultural landscapes with panoramic views</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
+                    <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Contact Us</span>
+                    <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-6">We're here to assist you. Reach out to us with your questions, feedback, or concerns.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="w-full lg:w-1/2">
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-semibold mb-6 text-gray-800">Send Us a Message</h3>
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-gray-700 mb-2">Full Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded border-gray-300 border focus:border-primary focus:ring focus:ring-primary/20 transition-all" placeholder="Enter your full name">
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded border-gray-300 border focus:border-primary focus:ring focus:ring-primary/20 transition-all" placeholder="Enter your email address">
+                            </div>
+                            <div class="mb-6">
+                                <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 rounded border-gray-300 border focus:border-primary focus:ring focus:ring-primary/20 transition-all" placeholder="Enter message subject">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 mb-2">Message</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 rounded border-gray-300 border focus:border-primary focus:ring focus:ring-primary/20 transition-all" placeholder="Enter your message"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 px-6 rounded-button font-semibold transition-all hover:shadow-lg whitespace-nowrap">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="w-full lg:w-1/2">
+                    <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                        <h3 class="text-2xl font-semibold mb-6 text-gray-800">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-map-pin-line text-primary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Address</h4>
+                                    <p class="text-gray-600">Municipal Hall, Poblacion, Salay, Misamis Oriental, 9007, Philippines</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-phone-line text-secondary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Phone</h4>
+                                    <p class="text-gray-600">+63 (88) 521-0892</p>
+                                    <p class="text-gray-600">+63 (88) 521-0893</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-mail-line text-primary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Email</h4>
+                                    <p class="text-gray-600">info@salay.gov.ph</p>
+                                    <p class="text-gray-600">mayor@salay.gov.ph</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mr-4 mt-1">
+                                    <i class="ri-time-line text-secondary ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Office Hours</h4>
+                                    <p class="text-gray-600">Monday to Friday: 8:00 AM - 5:00 PM</p>
+                                    <p class="text-gray-600">Saturday, Sunday & Holidays: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Connect With Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="ri-facebook-fill"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="ri-twitter-x-fill"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="ri-instagram-fill"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="ri-youtube-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden h-64">
+                        <div class="w-full h-full" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-size: cover; background-position: center;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Contact Banner -->
+    <section class="bg-gradient-to-r from-primary to-secondary py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-white mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2">Emergency Hotlines</h3>
+                    <p>For emergencies, please contact our 24/7 hotline numbers</p>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-lg text-white">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                <i class="ri-hospital-line text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-light">Medical Emergency</p>
+                                <p class="font-semibold">+63 (88) 521-1111</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-lg text-white">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                <i class="ri-fire-line text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-light">Fire Department</p>
+                                <p class="font-semibold">+63 (88) 521-2222</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-lg text-white">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                <i class="ri-police-line text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-light">Police Station</p>
+                                <p class="font-semibold">+63 (88) 521-3333</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-primary to-secondary rounded-full mr-3">
+                            <span class="text-white font-['Pacifico'] text-xl"></span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Municipality of Salay</h3>
+                            <p class="text-gray-400 text-sm">The Heart of Misamis Oriental</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">Serving our community with dedication, transparency, and excellence since 1858.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-instagram-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-youtube-fill"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> About Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Services</a></li>
+                        <li><a href="#tourism" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Tourism</a></li>
+                        <li><a href="#news" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> News & Updates</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Government</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Mayor's Office</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Municipal Council</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Departments</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Barangays</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Transparency</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors flex items-center"><i class="ri-arrow-right-s-line mr-2"></i> Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter to receive updates and news directly to your inbox.</p>
+                    <form class="mb-6">
+                        <div class="flex">
+                            <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-l-lg text-gray-900 text-sm border-none focus:outline-none focus:ring-0">
+                            <button type="submit" class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-3 rounded-r-lg font-medium whitespace-nowrap">Subscribe</button>
+                        </div>
+                    </form>
+                    <h3 class="text-xl font-semibold mb-4">Payment Partners</h3>
+                    <div class="flex space-x-4">
+                        <i class="ri-visa-fill text-gray-400 text-2xl"></i>
+                        <i class="ri-mastercard-fill text-gray-400 text-2xl"></i>
+                        <i class="ri-paypal-fill text-gray-400 text-2xl"></i>
+                        <i class="ri-bank-fill text-gray-400 text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2025 Municipality of Salay. All rights reserved.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all z-50 hover:bg-secondary">
+        <i class="ri-arrow-up-line ri-lg"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Back to Top Button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gallery Filter
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-primary', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active', 'bg-primary', 'text-white');
+                    this.classList.remove('bg-gray-200', 'text-gray-700');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Image Modal
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeBtn = document.getElementsByClassName('close')[0];
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    modal.style.display = 'flex';
+                    modalImg.src = this.src;
+                });
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
